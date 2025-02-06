@@ -48,4 +48,9 @@ final class Result<T> {
     static <T> Consumer<Result<T>> print() {
         return System.out::println;
     }
+
+    @Override
+    public String toString() {
+        return data == null  ? "<no_data>" : String.valueOf(data);
+    }
 }

@@ -15,11 +15,11 @@ final class DepthLimitedSearch<T> implements Search<T> {
         this.limit = limit;
     }
 
-    static <T> DepthLimitedSearch<T> dls(Node<T> start, Node<T> goal, int limit) {
+    static <T> Search<T> dls(Node<T> start, Node<T> goal, int limit) {
         return new DepthLimitedSearch<>(start, goal.data(), limit);
     }
 
-    static <T> DepthLimitedSearch<T> dls(Node<T> start, T goal, int limit) {
+    static <T> Search<T> dls(Node<T> start, T goal, int limit) {
         return new DepthLimitedSearch<>(start, goal, limit);
     }
 
