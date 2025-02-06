@@ -1,5 +1,8 @@
 package com.github.ppartisan.dsv;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static com.github.ppartisan.dsv.DepthLimitedSearch.dls;
 
 final class IterativeDeepeningSearch<T> implements Search<T> {
@@ -7,6 +10,8 @@ final class IterativeDeepeningSearch<T> implements Search<T> {
     private final Node<T> start;
     private final T goal;
     private final DLS<T> search;
+
+    private final List<T> path;
 
     private IterativeDeepeningSearch(
             Node<T> start,
@@ -16,6 +21,7 @@ final class IterativeDeepeningSearch<T> implements Search<T> {
         this.start = start;
         this.goal = goal;
         this.search = search;
+        this.path = new LinkedList<>();
     }
 
     static <T> Search<T> ids(Node<T> start, Node<T> goal) {
@@ -31,13 +37,14 @@ final class IterativeDeepeningSearch<T> implements Search<T> {
     }
 
     @Override
-    public Result<T> search() {;
+    public Result<T> search() {
         return search(start, 0);
     }
 
     private Result<T> search(Node<T> root, int depth) {
         final Result<T> result = search.dls(root, goal, depth);
-        return result.isSuccessful() ? result : search(root, depth + 1);
+        path.addAll(result.path());
+        return result.isSuccessful() ? result.with(path) : search(root, depth + 1);
     }
 
     interface DLS<T> {

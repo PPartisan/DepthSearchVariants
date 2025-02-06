@@ -3,7 +3,7 @@ package com.github.ppartisan.dsv;
 import static com.github.ppartisan.dsv.DepthLimitedSearch.dls;
 import static com.github.ppartisan.dsv.IterativeDeepeningSearch.ids;
 import static com.github.ppartisan.dsv.Node.node;
-import static com.github.ppartisan.dsv.Result.print;
+import static com.github.ppartisan.dsv.Result.*;
 
 final class Main {
     public static void main(String[] args) {
@@ -27,16 +27,16 @@ final class Main {
 
         dls(A, G, 2)
                 .search()
-                .assertThat(Result::isFailure)
-                .andThen(print());
+                .assertResult(failed())
+                .also(print());
 
         dls(A, G, 3)
                 .search()
-                .assertThat(Result::isSuccessful)
-                .andThen(print());
+                .assertResult(success())
+                .also(print());
 
         ids(A, G).search()
-                .assertThat(Result::isSuccessful)
-                .andThen(print());
+                .assertResult(success())
+                .also(print());
     }
 }
