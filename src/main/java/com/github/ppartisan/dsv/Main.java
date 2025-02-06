@@ -5,6 +5,16 @@ import static com.github.ppartisan.dsv.Node.node;
 
 final class Main {
     public static void main(String[] args) {
+        /*
+        Simulates tree:
+               A
+              / \
+             B   C
+            /   / \
+           D   E   F
+                \
+                 G
+         */
         final Node<Character> G = node('G');
         final Node<Character> F = node('F');
         final Node<Character> D = node('D');
