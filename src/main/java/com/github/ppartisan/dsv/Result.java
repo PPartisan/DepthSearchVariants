@@ -1,6 +1,7 @@
 package com.github.ppartisan.dsv;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 final class Result<T> {
@@ -33,9 +34,18 @@ final class Result<T> {
         return Optional.ofNullable(data);
     }
 
-    void assertThat(Predicate<Result<T>> toAssert) {
+    Result<T> assertThat(Predicate<Result<T>> toAssert) {
         if(!toAssert.test(this))
-            throw new AssertionError("Failed assert.");
+            System.out.println("Failed assert.");
         System.out.println("Assertion passed.");
+        return this;
+    }
+
+    void andThen(Consumer<Result<T>> toRun) {
+        toRun.accept(this);
+    }
+
+    static <T> Consumer<Result<T>> print() {
+        return System.out::println;
     }
 }

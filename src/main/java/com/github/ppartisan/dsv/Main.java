@@ -2,6 +2,7 @@ package com.github.ppartisan.dsv;
 
 import static com.github.ppartisan.dsv.DepthLimitedSearch.dls;
 import static com.github.ppartisan.dsv.Node.node;
+import static com.github.ppartisan.dsv.Result.print;
 
 final class Main {
     public static void main(String[] args) {
@@ -25,10 +26,12 @@ final class Main {
 
         dls(A, G, 2)
                 .search()
-                .assertThat(Result::isFailure);
+                .assertThat(Result::isFailure)
+                .andThen(print());
 
         dls(A, G, 3)
                 .search()
-                .assertThat(Result::isSuccessful);
+                .assertThat(Result::isSuccessful)
+                .andThen(print());
     }
 }
